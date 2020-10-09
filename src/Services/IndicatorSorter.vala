@@ -33,15 +33,16 @@ public class Wingpanel.Services.IndicatorSorter : Object {
     static construct {
         indicator_order[AYATANA_INDICATOR] = 0;
         indicator_order[UNKNOWN_INDICATOR] = 1;
-        indicator_order[Indicator.KEYBOARD] = 2;
-        indicator_order[Indicator.SOUND] = 3;
-        indicator_order[Indicator.NETWORK] = 4;
-        indicator_order[Indicator.BLUETOOTH] = 5;
-        indicator_order[Indicator.PRINTER] = 6;
-        indicator_order[Indicator.SYNC] = 7;
+        indicator_order[Indicator.PRINTER] = 2;
+        indicator_order[Indicator.SYNC] = 3;
+        indicator_order[Indicator.SOUND] = 4;
+        indicator_order[Indicator.NETWORK] = 5;
+        indicator_order[Indicator.BLUETOOTH] = 6;
+        indicator_order[Indicator.KEYBOARD] = 7;
         indicator_order[Indicator.POWER] = 8;
-        indicator_order[Indicator.MESSAGES] = 9;
+        indicator_order[Indicator.DATETIME] = 9;
         indicator_order[Indicator.SESSION] = 10;
+        indicator_order[Indicator.MESSAGES] = 11;
     }
 
     public int compare_func (Wingpanel.Widgets.IndicatorEntry? a, Wingpanel.Widgets.IndicatorEntry? b) {

@@ -149,21 +149,6 @@ public class Wingpanel.Widgets.Panel : Gtk.EventBox {
                 } else if (index < children.length () - 1) { // Has more than one indicator in the left menubar
                     sibling = children.nth_data (index + 1) as IndicatorEntry;
                 } else { // No more indicators on the left
-                    var center_children = center_menubar.get_children ();
-                    if (center_children.length () > 0) {
-                        sibling = center_children.first ().data as IndicatorEntry;
-                    }
-                }
-
-                break;
-            case Indicator.DATETIME:
-                var children = center_menubar.get_children ();
-                int index = children.index (current);
-                if (index == -1) {
-                    break;
-                } else if (index < children.length () - 1) { // Has more than one indicator in the center menubar
-                    sibling = children.nth_data (index + 1) as IndicatorEntry;
-                } else { // No more indicators on the center
                     var right_children = right_menubar.get_children ();
                     if (right_children.length () > 0) {
                         sibling = right_children.first ().data as IndicatorEntry;
@@ -252,10 +237,6 @@ public class Wingpanel.Widgets.Panel : Gtk.EventBox {
             case Indicator.APP_LAUNCHER:
                 indicator_entry.set_transition_type (Gtk.RevealerTransitionType.SLIDE_RIGHT);
                 left_menubar.add (indicator_entry);
-                break;
-            case Indicator.DATETIME:
-                indicator_entry.set_transition_type (Gtk.RevealerTransitionType.SLIDE_DOWN);
-                center_menubar.add (indicator_entry);
                 break;
             default:
                 indicator_entry.set_transition_type (Gtk.RevealerTransitionType.SLIDE_LEFT);
