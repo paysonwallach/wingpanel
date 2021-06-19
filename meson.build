@@ -33,6 +33,15 @@ gtk_dep = dependency('gtk+-3.0', version: '>=3.10')
 gee_dep = dependency('gee-0.8')
 granite_dep = dependency('granite', version: '>=5.4.0')
 
+appmenu_proj = subproject(
+  'appmenu',
+  default_options: [
+    'install=false'
+  ]
+)
+appmenu_dep = appmenu_proj.get_variable('appmenu_dep')
+libres = appmenu_proj.get_variable('libres')
+
 subdir('data')
 subdir('lib')
 subdir('schemas')
