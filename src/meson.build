@@ -14,12 +14,14 @@ wingpanel_files = files(
 )
 
 wingpanel_deps = [
+    appmenu_dep,
     libwingpanel_dep,
     granite_dep,
     gdk_x11_dep
 ]
 
 executable(meson.project_name(),
+    libres,
     css_gresource,
     wingpanel_files,
     dependencies: wingpanel_deps,

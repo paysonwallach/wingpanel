@@ -21,6 +21,7 @@ public class Wingpanel.Widgets.Panel : Gtk.EventBox {
     public Services.PopoverManager popover_manager { get; construct; }
 
     private IndicatorMenuBar right_menubar;
+    private Appmenu.MenuWidget appmenu;
     private Gtk.MenuBar left_menubar;
     private Gtk.MenuBar center_menubar;
 
@@ -44,10 +45,13 @@ public class Wingpanel.Widgets.Panel : Gtk.EventBox {
         vexpand = true;
         valign = Gtk.Align.START;
 
-        left_menubar = new Gtk.MenuBar () {
-            can_focus = true,
-            halign = Gtk.Align.START
-        };
+        appmenu = new Appmenu.MenuWidget ();
+        appmenu.bold_application_name = true;
+        appmenu.margin_start = 6;
+        appmenu.get_style_context ().add_provider (resource_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+        left_menubar = new MenuBar ();
+        left_menubar.halign = Gtk.Align.START;
         left_menubar.get_style_context ().add_provider (resource_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         center_menubar = new Gtk.MenuBar () {
@@ -62,7 +66,7 @@ public class Wingpanel.Widgets.Panel : Gtk.EventBox {
         right_menubar.get_style_context ().add_provider (resource_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        box.pack_start (left_menubar);
+        box.pack_start (appmenu);
         box.set_center_widget (center_menubar);
         box.pack_end (right_menubar);
 
