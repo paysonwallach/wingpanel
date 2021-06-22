@@ -20,7 +20,8 @@
 public class Wingpanel.Widgets.Panel : Gtk.EventBox {
     public Services.PopoverManager popover_manager { get; construct; }
 
-    private Appmenu.MenuWidget left_menubar;
+    private Gtk.Box box;
+    private Appmenu.MenuWidget? left_menubar;
     private IndicatorMenuBar right_menubar;
 
     private unowned Gtk.StyleContext style_context;
@@ -43,28 +44,12 @@ public class Wingpanel.Widgets.Panel : Gtk.EventBox {
         vexpand = true;
         valign = Gtk.Align.START;
 
-        appmenu = new Appmenu.MenuWidget ();
-        appmenu.bold_application_name = true;
-        appmenu.margin_start = 6;
-        appmenu.get_style_context ().add_provider (resource_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-        left_menubar = new MenuBar ();
-        left_menubar.halign = Gtk.Align.START;
-        left_menubar.get_style_context ().add_provider (resource_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-        center_menubar = new Gtk.MenuBar () {
-            can_focus = true
-        };
-        center_menubar.get_style_context ().add_provider (resource_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-        right_menubar = new IndicatorMenuBar () {
-            can_focus = true,
-            halign = Gtk.Align.END
-        };
+        right_menubar = new IndicatorMenuBar ();
+        right_menubar.halign = Gtk.Align.END;
         right_menubar.get_style_context ().add_provider (resource_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        box.pack_start (left_menubar);
+        box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+
         box.pack_end (right_menubar);
 
         add (box);
@@ -143,6 +128,18 @@ public class Wingpanel.Widgets.Panel : Gtk.EventBox {
         if (sibling != null) {
             popover_manager.current_indicator = sibling;
         }
+    }
+
+    public void initialize (IndicatorManager.ServerType server_type) {
+        if (server_type == IndicatorManager.ServerType.GREETER)
+            return;
+
+        left_menubar = new Appmenu.MenuWidget ();
+        left_menubar.bold_application_name = true;
+        left_menubar.margin_start = 6;
+        left_menubar.get_style_context ().add_provider (resource_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+        box.pack_start (left_menubar);
     }
 
     private IndicatorEntry? get_next_sibling (IndicatorEntry current) {
