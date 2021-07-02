@@ -32,6 +32,7 @@ public class Wingpanel.Application : Gtk.Application {
         { null }
     };
 
+    private IndicatorManager.ServerType server_type = IndicatorManager.ServerType.GREETER;
     private PanelWindow? panel_window = null;
 
     construct {
@@ -78,11 +79,11 @@ public class Wingpanel.Application : Gtk.Application {
     protected override int command_line (ApplicationCommandLine command_line) {
         VariantDict options = command_line.get_options_dict ();
 
-        if (options.contains (SERVER_TYPE_ACTION_NAME)) {
-            IndicatorManager.get_default ().initialize (IndicatorManager.ServerType.GREETER);
-        } else {
-            IndicatorManager.get_default ().initialize (IndicatorManager.ServerType.SESSION);
-        }
+        if (!options.contains (SERVER_TYPE_ACTION_NAME))
+            server_type = IndicatorManager.ServerType.SESSION;
+
+        IndicatorManager.get_default ().initialize (server_type);
+        panel_window.panel.initialize (server_type);
 
         if (options.contains (OPEN_INDICATOR_ACTION_NAME)) {
             activate_action (OPEN_INDICATOR_ACTION_NAME, options.lookup_value (OPEN_INDICATOR_ACTION_NAME, VariantType.STRING));
